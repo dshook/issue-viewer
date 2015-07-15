@@ -1,0 +1,61 @@
+$header-height: 2em;
+$footer-height: 3em;
+$layout-padding: 1em;
+
+body{
+  height: 100%;
+  @include flex-direction(column);
+  @include flexbox();
+}
+
+.layout{
+  @include flexbox();
+  min-height: 100vh;
+  @include flex-direction(column);
+
+  .wrapper{
+    @include flexbox();
+    min-height: 100vh;
+    @include flex-direction(column);
+  }
+}
+
+.header{
+  @include flex(none);
+  background-color: $neutral-blue2;
+
+  .header-container{
+    @include flexbox();
+
+    .title{
+      @include flexbox();
+      padding: $layout-padding;
+      align-items: baseline;
+
+      h1{
+        @include flexbox();
+        margin: 0;
+     
+      }
+    }
+    .actions{
+      @include flex(1);
+      @include flex-justify(flex-end);
+      padding: $layout-padding;
+      text-align: right;
+    }
+
+  }
+}
+
+.main{
+  @include flexbox();
+  @include flex(1 0 auto);
+}
+
+.footer{
+  @include flex(none);
+  background-color: $neutral-blue2;
+  text-align: center;
+  padding: $layout-padding;
+}

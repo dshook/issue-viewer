@@ -1,0 +1,22 @@
+//mixins
+@import 'mixins/clearfix';
+@import 'mixins/vertical-align';
+@import 'mixins/flex';
+
+@import 'normalize';
+@import 'colors';
+@import 'fonts';
+@import 'fa/font-awesome';
+@import 'buttons';
+
+@import 'layout';
+
+body {
+  font: 100% $font-stack;
+  font-size: $font-size;
+  color: $text-color;
+  background: $neutral-light;
+}
+i{
+  margin-right: 0.5em;
+}
