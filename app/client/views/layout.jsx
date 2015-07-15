@@ -1,9 +1,10 @@
 import React from 'react';
-//import AppActions from 'client/actions/AppActions.js';
+import IssueList from './IssueList.jsx';
+import issueActions from 'client/actions/IssueActions.js';
 
 export default class Layout extends React.Component {
-  startJob(){
-    console.log('start');
+  updateIssues(){
+    issueActions.updateIssues();
   }
 
   render() {
@@ -15,14 +16,15 @@ export default class Layout extends React.Component {
               <h1><i className="fa fa-github"></i>Github Issue Tracker</h1>
             </div>
             <div className="actions">
-              <button onClick={this.startJob} className="button button--action" >
+              <button onClick={this.updateIssues} className="button button--action" >
                 <i className="fa fa-play"></i>
-                Start Job
+                Update Issues
               </button>
             </div>
           </div>
         </div>
         <div className="main">
+          <IssueList />
         </div>
         <div className="footer">
         </div>
