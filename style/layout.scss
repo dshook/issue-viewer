@@ -22,7 +22,7 @@ body{
 
 .header{
   @include flex(none);
-  background-color: $neutral-blue2;
+  background-color: $neutral-2;
 
   .header-container{
     @include flexbox();
@@ -55,7 +55,7 @@ body{
 
 .footer{
   @include flex(none);
-  background-color: $neutral-blue2;
+  background-color: $neutral-2;
   text-align: center;
   padding: $layout-padding;
 }

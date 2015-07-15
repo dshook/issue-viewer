@@ -1,0 +1,75 @@
+.issue-list{
+  margin: 0em;
+  padding: 1em;
+
+  ul{
+    margin: 0;
+    padding: 0;
+  }
+
+  li.issue{
+    @extend %clearfix;
+    @include flexbox(); 
+
+    -webkit-box-shadow: 10px 10px 24px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 24px -9px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 24px -9px rgba(0,0,0,0.75);
+
+    background-color: $neutral-light;
+    list-style: none;  
+    margin-bottom: 1em;
+    padding: 1em;
+
+    .left-panel{
+      @include flex(initial);
+      margin: 0 1em 1em 0;
+      height: 100%;
+    }
+
+    .right-panel{
+      @include flex(1);
+      height: 100%;
+    }
+
+    .num{
+      &::before{
+        content: '#';
+      }
+      font-size: 1.3em;
+    }
+
+    .title{
+      font-size: 1.3em;
+    }
+
+    .user{
+      margin-top: 0.5em;
+      img{
+        width: 75px;
+        height: 75px;
+      }
+      .name{
+        text-align: center;
+        font-size: 0.7em;
+      }
+    }
+
+    .body{
+      font-size: 0.8em;
+      word-break: break-all;
+    }
+
+    .labels{
+      float: left;
+      color: #EEE;
+      @include text-stroke(2px);
+
+      .label{
+        @include rounded(5px);
+        float: left;
+        padding: 0.4em 0.6em;
+        margin-right: 0.5em;
+      }
+    }
+  }
+}

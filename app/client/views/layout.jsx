@@ -3,8 +3,25 @@ import IssueList from './IssueList.jsx';
 import issueActions from 'client/actions/IssueActions.js';
 
 export default class Layout extends React.Component {
+  constructor(){
+    super();
+
+    this.state = {
+      repo: 'rails/rails'
+    };
+
+    this.onRepoChange = this.onRepoChange.bind(this);
+    this.updateIssues = this.updateIssues.bind(this);
+
+    this.updateIssues();
+  }
+
+  onRepoChange(e){
+    this.setState({repo: e.target.value});
+  }
+
   updateIssues(){
-    issueActions.updateIssues();
+    issueActions.updateIssues(this.state.repo);
   }
 
   render() {
@@ -16,6 +33,8 @@ export default class Layout extends React.Component {
               <h1><i className="fa fa-github"></i>Github Issue Tracker</h1>
             </div>
             <div className="actions">
+              <span>Repository: </span>
+              <input onChange={this.onRepoChange} value={this.state.repo} />
               <button onClick={this.updateIssues} className="button button--action" >
                 <i className="fa fa-play"></i>
                 Update Issues

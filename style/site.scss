@@ -2,12 +2,15 @@
 @import 'mixins/clearfix';
 @import 'mixins/vertical-align';
 @import 'mixins/flex';
+@import 'mixins/text-stroke';
+@import 'mixins/rounded';
 
 @import 'normalize';
 @import 'colors';
 @import 'fonts';
 @import 'fa/font-awesome';
 @import 'buttons';
+@import 'issueList';
 
 @import 'layout';
 
@@ -15,7 +18,7 @@ body {
   font: 100% $font-stack;
   font-size: $font-size;
   color: $text-color;
-  background: $neutral-light;
+  background: $neutral;
 }
 i{
   margin-right: 0.5em;

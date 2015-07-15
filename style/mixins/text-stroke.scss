@@ -1,0 +1,5 @@
+@mixin text-stroke($size){
+text-shadow: #000 0px 0px $size,   #000 0px 0px $size,   #000 0px 0px $size,
+             #000 0px 0px $size,   #000 0px 0px $size,   #000 0px 0px $size;
+  -webkit-font-smoothing: antialiased;
+}

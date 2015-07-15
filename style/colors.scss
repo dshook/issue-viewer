@@ -1,21 +1,17 @@
 // Base colors.
-$neutral-light: #E8E8E8;
-$neutral-dark: #5F5F5F;
-$neutral-blue: #ECF1F9;
-$neutral-blue2: #C2D4EC;
+$neutral: #D4CAA0;
+$neutral-light: #B3BC92;
+$neutral-dark: #1B343C;
+$neutral-2: #8E8F7F;
 
 $text-color: $neutral-dark;
 
 // Other colors.
-$red: #c23127;
-$orange: #FE7312;
+$red: #DD1111;
+$orange: #B96F20;
 $yellow: #edb443;
-$magenta: #888ca6;
-$violet: #A36FC7;
+$magenta: #EC5082;
+$violet: #2B2D41;
 $blue: #00A9C7;
 $cyan: #33859E;
-$green: #1BCD06;
-
-$widget-source-color: rgb(115, 148, 221);
-$widget-transform-color: rgb(118, 116, 189);
-$widget-dest-color: rgb(42, 45, 90);
+$green: #1B3E31;

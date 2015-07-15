@@ -119,9 +119,12 @@ gulp.task('client', function() {
 gulp.task('watch', function() {
   livereload.listen();
   sequence('client');
-  gulp.watch('./style/**/*.scss', ['sass']);
-  gulp.watch('./app/client/**/*.js', ['lint-client', 'browserify-client']);
-  gulp.watch('./app/client/**/*.jsx', ['lint-client', 'browserify-client']);
+  gulp.watch('./style/**/*.scss', ['sass'])
+      .on('error', handleError);
+  gulp.watch('./app/client/**/*.js', ['lint-client', 'browserify-client'])
+      .on('error', handleError);
+  gulp.watch('./app/client/**/*.jsx', ['lint-client', 'browserify-client'])
+      .on('error', handleError);
 });
 
 gulp.task('default', ['client']);

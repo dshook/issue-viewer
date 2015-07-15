@@ -1,8 +1,8 @@
 import alt from 'client/alt.js';
 
 class IssueActions {
-  updateIssues(page){
-    return { page };
+  updateIssues(repo, page){
+    return { repo, page };
   }
 }
 

@@ -47,6 +47,7 @@
     "express": "^4.12.4",
     "httpinvoke": "^1.4.0",
     "lodash": "^3.8.0",
+    "marked": "^0.3.3",
     "react": "^0.13.3"
   }
 }

@@ -1,5 +1,7 @@
 import alt from 'client/alt.js';
+import httpinvoke from 'httpinvoke';
 import IssueActions from 'client/actions/IssueActions.js';
+import converters from './converters.js';
 
 class IssueStore{
   constructor(){
@@ -12,10 +14,22 @@ class IssueStore{
     };
   }
 
-  updateIssues(page){
-    this.setState({
-      issues: ['issue 1', 'issue 2']
-    });
+
+  async updateIssues(params){
+    try{
+      var page = params.page || 0;
+      var issues = await httpinvoke(
+        `https://api.github.com/repos/${params.repo}/issues?page=${page}`
+        , 'GET'
+        , {outputType: 'json', converters: converters}
+        );
+
+      this.setState({
+        issues: issues.body
+      });
+    }catch(e){
+      console.log('Error updating issues', e);
+    }
   }
 }
 
