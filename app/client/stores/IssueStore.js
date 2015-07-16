@@ -29,6 +29,10 @@ class IssueStore{
         , {outputType: 'json', converters: converters}
         );
 
+      if(issuesResponse.statusCode !== 200){
+        throw issuesResponse.body;
+      }
+
       //little brittle way to get the total pages
       let pages = 0;
       if(issuesResponse.headers.link){
@@ -55,12 +59,15 @@ class IssueStore{
         issue: null,
         repo: params.repo
       });
-      
+
       let issueResponse = await httpinvoke(
         `https://api.github.com/repos/${params.repo}/issues/${params.number}`
         , 'GET'
         , {outputType: 'json', converters: converters}
         );
+      if(issueResponse.statusCode !== 200){
+        throw issueResponse.body;
+      }
       let issue = issueResponse.body;
 
       let commentsResponse = await httpinvoke(

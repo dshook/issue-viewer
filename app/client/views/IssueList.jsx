@@ -11,6 +11,8 @@ class IssueList extends React.Component {
 
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
+    
+    IssueActions.updateIssues(this.state.repo);
   }
   static propTypes = {
     issues: React.PropTypes.array,

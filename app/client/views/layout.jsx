@@ -18,8 +18,6 @@ export default class Layout extends React.Component {
 
     this.onRepoChange = this.onRepoChange.bind(this);
     this.updateIssues = this.updateIssues.bind(this);
-
-    this.updateIssues();
   }
 
   onRepoChange(e){
