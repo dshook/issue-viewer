@@ -36,7 +36,7 @@ export default class Layout extends React.Component {
         <div className="header">
           <div className="header-container">
             <div className="title">
-              <h1><i className="fa fa-github"></i> Issue Tracker</h1>
+              <a href="/"><h1><i className="fa fa-github"></i> Issue Tracker</h1></a>
             </div>
             <div className="actions">
               <div className="repository">
@@ -52,8 +52,6 @@ export default class Layout extends React.Component {
         </div>
         <div className="main">
           {this.props.children}
-        </div>
-        <div className="footer">
         </div>
       </div>
     );

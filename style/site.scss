@@ -1,5 +1,6 @@
 //mixins
 @import 'mixins/clearfix';
+@import 'mixins/media';
 @import 'mixins/vertical-align';
 @import 'mixins/flex';
 @import 'mixins/text-stroke';
@@ -8,7 +9,7 @@
 @import 'normalize';
 @import 'colors';
 @import 'fonts';
-@import 'fa/font-awesome';
+@import 'icons';
 @import 'buttons';
 @import 'issueList';
 
@@ -20,6 +21,13 @@ body {
   color: $text-color;
   background: $neutral;
 }
-i{
-  margin-right: 0.5em;
+
+a{
+  text-decoration: none;
+  color: $blue;
+  transition:all 0.3s ease;
+  &:hover{
+    color: darken($blue, 100);
+    text-decoration: underline;
+  }
 }

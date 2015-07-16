@@ -1,13 +1,26 @@
 .issue-list{
   margin: 0em;
   padding: 1em;
+  @include flex(1);
 
-  ul{
+  .header{
+    text-align: center;
+    padding: 1em;
+    h2{
+      margin-top: 0;
+    }
+
+    .button{
+      margin: 0 1em;
+    }
+  }
+
+  .list-container{
     margin: 0;
     padding: 0;
   }
 
-  li.issue{
+  .issue{
     @extend %clearfix;
     @include flexbox(); 
 
@@ -40,6 +53,7 @@
 
     .title{
       font-size: 1.3em;
+      word-wrap: break-word;
     }
 
     .user{

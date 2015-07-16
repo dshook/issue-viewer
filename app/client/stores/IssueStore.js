@@ -12,6 +12,7 @@ class IssueStore{
 
     this.state = {
       issues: [],
+      page: 1,
       pages: 0,
       issue: null,
       repo: ''
@@ -21,7 +22,7 @@ class IssueStore{
 
   async updateIssues(params){
     try{
-      let page = params.page || 0;
+      let page = params.page || 1;
       let issuesResponse = await httpinvoke(
         `https://api.github.com/repos/${params.repo}/issues?page=${page}`
         , 'GET'
@@ -33,12 +34,13 @@ class IssueStore{
       if(issuesResponse.headers.link){
         let matches = issuesResponse.headers.link.match(/page=(\d+)>; rel="last"/);
         if(matches.length){
-          pages = matches[0];
+          pages = matches[1];
         }
       }
 
       this.setState({
         issues: issuesResponse.body,
+        page: page,
         pages: pages,
         repo: params.repo
       });
@@ -49,6 +51,11 @@ class IssueStore{
 
   async updateIssue(params){
     try{
+      this.setState({
+        issue: null,
+        repo: params.repo
+      });
+      
       let issueResponse = await httpinvoke(
         `https://api.github.com/repos/${params.repo}/issues/${params.number}`
         , 'GET'

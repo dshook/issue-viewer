@@ -1,12 +1,21 @@
 import React from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 import IssueStore from 'client/stores/IssueStore.js';
+import IssueActions from 'client/actions/IssueActions.js';
 import { Link } from 'react-router';
 import marked from 'marked';
 
 class IssueList extends React.Component {
+  constructor(){
+    super();
+
+    this.nextPage = this.nextPage.bind(this);
+    this.prevPage = this.prevPage.bind(this);
+  }
   static propTypes = {
     issues: React.PropTypes.array,
+    page: React.PropTypes.int,
+    pages: React.PropTypes.int,
     repo: React.PropTypes.string
   }
 
@@ -18,9 +27,21 @@ class IssueList extends React.Component {
     return IssueStore.getState();
   }
 
+  nextPage(e){
+    if(this.props.page + 1 <= this.props.pages){
+      IssueActions.updateIssues(this.props.repo, this.props.page + 1);
+    }
+  }
+
+  prevPage(e){
+    if(this.props.page > 1){
+      IssueActions.updateIssues(this.props.repo, this.props.page - 1);
+    }
+  }
+
   renderIssue(repo, issue){
     return (
-      <li key={issue.id} className="issue" >
+      <div key={issue.id} className="issue" >
         <div className="left-panel">
           <a href={issue.html_url} className="num">{issue.number}</a>
           <div className="user">
@@ -43,14 +64,21 @@ class IssueList extends React.Component {
             )}
           </div>
         </div>
-      </li>
+      </div>
     );
   }
 
   render() {
     return (
       <div className="issue-list">
-        <h3>Issues</h3>
+        <div className="header">
+          <h2>Issues</h2>
+          <div className="nav">
+            <button className="button button--action" onClick={this.prevPage}><i className="fa fa-arrow-left"></i> Back</button>
+            <span>Page {this.props.page} of {this.props.pages}</span>
+            <button className="button button--action" onClick={this.nextPage}>Forward <i className="fa fa-arrow-right right"></i></button>
+          </div>
+        </div>
         <ul>
           {this.props.issues.map((issue) => this.renderIssue(this.props.repo, issue))}
         </ul>

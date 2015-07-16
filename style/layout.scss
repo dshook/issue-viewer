@@ -24,8 +24,22 @@ body{
   @include flex(none);
   background-color: $neutral-2;
 
+  a{
+    color: $neutral-dark;
+    &:hover{
+      color: $neutral-dark;
+      text-decoration: none;
+    }
+  }
+
   .header-container{
     @include flexbox();
+    flex-direction: row;
+    
+    @include mobile{
+      flex-direction: column;
+      text-decoration: none;
+    }
 
     .title{
       @include flexbox();
@@ -51,7 +65,6 @@ body{
         vertical-align: middle;
       }
     }
-
   }
 }
 
