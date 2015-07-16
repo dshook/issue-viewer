@@ -1,13 +1,19 @@
 import React from 'react';
 import IssueList from './IssueList.jsx';
 import issueActions from 'client/actions/IssueActions.js';
+import { Router, Route, Link } from 'react-router';
 
 export default class Layout extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.object
+  }
+
   constructor(){
     super();
 
     this.state = {
-      repo: 'rails/rails'
+      repo: 'rails/rails',
+      route: window.location.hash.substr(1)
     };
 
     this.onRepoChange = this.onRepoChange.bind(this);
@@ -30,11 +36,13 @@ export default class Layout extends React.Component {
         <div className="header">
           <div className="header-container">
             <div className="title">
-              <h1><i className="fa fa-github"></i>Github Issue Tracker</h1>
+              <h1><i className="fa fa-github"></i> Issue Tracker</h1>
             </div>
             <div className="actions">
-              <span>Repository: </span>
-              <input onChange={this.onRepoChange} value={this.state.repo} />
+              <div className="repository">
+                <span>Repository: </span>
+                <input onChange={this.onRepoChange} value={this.state.repo} />
+              </div>
               <button onClick={this.updateIssues} className="button button--action" >
                 <i className="fa fa-play"></i>
                 Update Issues
@@ -43,7 +51,7 @@ export default class Layout extends React.Component {
           </div>
         </div>
         <div className="main">
-          <IssueList />
+          {this.props.children}
         </div>
         <div className="footer">
         </div>

@@ -34,6 +34,7 @@ body{
 
       h1{
         @include flexbox();
+        line-height: 30px;
         margin: 0;
      
       }
@@ -43,6 +44,12 @@ body{
       @include flex-justify(flex-end);
       padding: $layout-padding;
       text-align: right;
+
+      .repository{
+        margin-right: 0.5em;
+        display: inline;
+        vertical-align: middle;
+      }
     }
 
   }

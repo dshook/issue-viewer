@@ -1,12 +1,13 @@
 import React from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 import IssueStore from 'client/stores/IssueStore.js';
-import { Link } from 'react-router';
+import issueActions from 'client/actions/IssueActions.js';
 import marked from 'marked';
 
-class IssueList extends React.Component {
+class Issue extends React.Component {
   static propTypes = {
-    issues: React.PropTypes.array,
+    params: React.PropTypes.object,
+    issue: React.PropTypes.object,
     repo: React.PropTypes.string
   }
 
@@ -18,7 +19,15 @@ class IssueList extends React.Component {
     return IssueStore.getState();
   }
 
-  renderIssue(repo, issue){
+  componentDidMount() {
+    let repo = this.props.params.repo.replace('-', '/');
+    let number = this.props.params.number;
+    this.setState({ number: number, repo: repo});
+    issueActions.updateIssue(repo, number);
+  }
+
+  renderIssue(issue){
+    if(!issue) return '';
     return (
       <li key={issue.id} className="issue" >
         <div className="left-panel">
@@ -29,7 +38,7 @@ class IssueList extends React.Component {
           </div>
         </div>
         <div className="right-panel">
-          <Link to={`/issue/${repo.replace('/', '-')}/${issue.number}` } className="title">{issue.title}</Link>
+          <span className="title">{issue.title}</span>
           <div className="body" 
             dangerouslySetInnerHTML={{
               __html: issue.body ? marked(issue.body, {sanitize: true}) : ''
@@ -50,13 +59,10 @@ class IssueList extends React.Component {
   render() {
     return (
       <div className="issue-list">
-        <h3>Issues</h3>
-        <ul>
-          {this.props.issues.map((issue) => this.renderIssue(this.props.repo, issue))}
-        </ul>
+        {this.renderIssue(this.props.issue)}
       </div>
     );
   }
 }
 
-export default connectToStores(IssueList);
+export default connectToStores(Issue);

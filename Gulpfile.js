@@ -88,7 +88,6 @@ gulp.task('browserify-client', function() {
       .pipe(vinylSource('main.js'))
       .pipe(vinylBuffer())
       .pipe(sourcemaps.init({loadMaps: true}))
-      //.pipe(uglify())
       .pipe(sourcemaps.write('./maps/'))
       .pipe(gulp.dest('./public/dist/'))
       .pipe(livereload());
