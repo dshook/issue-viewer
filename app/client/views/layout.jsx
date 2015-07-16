@@ -1,6 +1,6 @@
 import React from 'react';
 import IssueList from './IssueList.jsx';
-import issueActions from 'client/actions/IssueActions.js';
+import IssueActions from 'client/actions/IssueActions.js';
 import { Router, Route, Link } from 'react-router';
 
 export default class Layout extends React.Component {
@@ -12,12 +12,13 @@ export default class Layout extends React.Component {
     super();
 
     this.state = {
-      repo: 'rails/rails',
-      route: window.location.hash.substr(1)
+      repo: 'rails/rails'
     };
 
     this.onRepoChange = this.onRepoChange.bind(this);
     this.updateIssues = this.updateIssues.bind(this);
+
+    IssueActions.updateIssues(this.state.repo);
   }
 
   onRepoChange(e){
@@ -25,7 +26,7 @@ export default class Layout extends React.Component {
   }
 
   updateIssues(){
-    issueActions.updateIssues(this.state.repo);
+    IssueActions.updateIssues(this.state.repo);
   }
 
   render() {

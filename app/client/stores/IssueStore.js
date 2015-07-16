@@ -38,7 +38,7 @@ class IssueStore{
       if(issuesResponse.headers.link){
         let matches = issuesResponse.headers.link.match(/page=(\d+)>; rel="last"/);
         if(matches.length){
-          pages = matches[1];
+          pages = parseInt(matches[1]);
         }
       }
 

@@ -11,13 +11,13 @@ class IssueList extends React.Component {
 
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
-    
-    IssueActions.updateIssues(this.state.repo);
+    this.renderIssue = this.renderIssue.bind(this);
+    this.render = this.render.bind(this);
   }
   static propTypes = {
     issues: React.PropTypes.array,
-    page: React.PropTypes.int,
-    pages: React.PropTypes.int,
+    page: React.PropTypes.number,
+    pages: React.PropTypes.number,
     repo: React.PropTypes.string
   }
 
@@ -27,6 +27,35 @@ class IssueList extends React.Component {
 
   static getPropsFromStores(){
     return IssueStore.getState();
+  }
+
+  trimStringClean(str, len){
+    var trimmedString = str.substr(0, len);
+
+    //re-trim if we are in the middle of a word
+    return trimmedString.substr(0, 
+      Math.min(trimmedString.length, trimmedString.lastIndexOf(' ')));
+  }
+
+  formatBody(str){
+    if(!str) return '';
+    var tokens = marked.lexer(str, {sanatize: true});
+    var maxLen = 140;
+    var seenLen = 0;
+    var finishedTokens = [];
+    //get the first maxLen characters of the parsed markdown
+    for(let token of tokens){
+      if(seenLen + token.text.length < maxLen){
+        finishedTokens.push(token);
+        seenLen += token.text.length;
+      }else{
+        token.text = this.trimStringClean(token.text, maxLen - seenLen);
+        finishedTokens.push(token);
+        break;
+      }
+    }
+    finishedTokens.links = tokens.links;
+    return marked.parser(finishedTokens);
   }
 
   nextPage(e){
@@ -42,6 +71,7 @@ class IssueList extends React.Component {
   }
 
   renderIssue(repo, issue){
+
     return (
       <div key={issue.id} className="issue" >
         <div className="left-panel">
@@ -55,7 +85,7 @@ class IssueList extends React.Component {
           <Link to={`/issue/${repo.replace('/', '-')}/${issue.number}` } className="title">{issue.title}</Link>
           <div className="body" 
             dangerouslySetInnerHTML={{
-              __html: issue.body ? marked(issue.body, {sanitize: true}) : ''
+              __html: this.formatBody(issue.body) 
             }}
           />
           <div className="labels">
