@@ -36,6 +36,14 @@
     @include flex(initial);
     margin: 0 1em 1em 0;
     height: 100%;
+
+    .labels{
+      @include flexbox();
+      @include flex-direction(column);
+      .label{
+        margin-top: 0.5em;
+      }
+    }
   }
 
   .right-panel{
@@ -70,6 +78,10 @@
   .body{
     font-size: 0.8em;
     word-break: break-all;
+
+    h1,h2,h3,h4,h5{
+      font-size: 0.9em;
+    }
   }
 
   .labels{

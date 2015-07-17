@@ -1,7 +1,8 @@
 import React from 'react';
 import IssueList from './IssueList.jsx';
 import IssueActions from 'client/actions/IssueActions.js';
-import { Router, Route, Link } from 'react-router';
+import { Router, Route, Link, Navigation } from 'react-router';
+import reactMixin from 'react-mixin';
 
 export default class Layout extends React.Component {
   static propTypes = {
@@ -27,6 +28,7 @@ export default class Layout extends React.Component {
 
   updateIssues(){
     IssueActions.updateIssues(this.state.repo);
+    this.context.router.transitionTo('/');
   }
 
   render() {
@@ -56,3 +58,5 @@ export default class Layout extends React.Component {
     );
   }
 }
+
+reactMixin.onClass(Layout, Navigation);

@@ -31,10 +31,10 @@ class Issue extends React.Component {
 
   renderComment(comment, index){
     return (
-      <div className="comment">
+      <div key={comment.id} className="comment">
         <div key={comment.id} className="issue" >
           <div className="left-panel">
-            <div className="date">{comment.updated_at}</div>
+            <div className="date">{new Date(comment.updated_at).toLocaleString('en-US')}</div>
             <div className="user">
               <img src={comment.user.avatar_url} />
               <div className="name">{comment.user.login}</div>
@@ -63,6 +63,13 @@ class Issue extends React.Component {
             <img src={issue.user.avatar_url} />
             <div className="name">{issue.user.login}</div>
           </div>
+          <div className="labels">
+            {issue.labels.map((label) => {
+              let style = {backgroundColor: '#' + label.color};
+              return (<div key={label.url} style={style} className="label">{label.name}</div>);
+            }
+            )}
+          </div>
         </div>
         <div className="right-panel">
           <span className="title">{issue.title}</span>
@@ -71,13 +78,6 @@ class Issue extends React.Component {
               __html: markdown.formatBody(issue.body)
             }}
           />
-          <div className="labels">
-            {issue.labels.map((label) => {
-              let style = {backgroundColor: '#' + label.color};
-              return (<div key={label.url} style={style} className="label">{label.name}</div>);
-            }
-            )}
-          </div>
           <div className="comments">
             {issue.comments.map((c, i) => this.renderComment(c, i) )}
           </div>

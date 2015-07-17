@@ -7,6 +7,12 @@ export default class Markdown{
     return `<p>${replacedText}</p>`;
   }
 
+  static encodeHtmlEntites(str){
+    return str.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+      return '&#' + i.charCodeAt(0) + ';';
+    });
+  }
+
   static formatBody(str, maxLen){
     if(!str) return '';
     var renderer = new marked.Renderer();
@@ -20,11 +26,16 @@ export default class Markdown{
     var finishedTokens = [];
     //get the first maxLen characters of the parsed markdown
     for(let token of tokens){
-      if(seenLen + token.text.length < maxLen){
+      if(token.text && seenLen + token.text.length < maxLen){
         finishedTokens.push(token);
         seenLen += token.text.length;
-      }else{
-        token.text = Markdown.trimStringClean(token.text, maxLen - seenLen) + '...';
+      }else if(token.text){
+        //don't truncate html since it can break matching tags
+        if(token.type === 'html' || token.type === 'code'){
+          //finishedTokens.push(token);
+          break;
+        }
+        token.text = Markdown.encodeHtmlEntites(Markdown.trimStringClean(token.text, maxLen - seenLen));
         finishedTokens.push(token);
         break;
       }
