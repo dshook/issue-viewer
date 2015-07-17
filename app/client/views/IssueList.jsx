@@ -32,6 +32,7 @@ class IssueList extends React.Component {
   nextPage(e){
     if(this.props.page + 1 <= this.props.pages){
       IssueActions.updateIssues(this.props.repo, this.props.page + 1);
+      window.scrollTo(0, 0);
     }
   }
 
@@ -39,6 +40,16 @@ class IssueList extends React.Component {
     if(this.props.page > 1){
       IssueActions.updateIssues(this.props.repo, this.props.page - 1);
     }
+  }
+
+  renderPaging(){
+    return (
+      <div className="nav">
+        <button className="button button--action" onClick={this.prevPage}><i className="fa fa-arrow-left"></i> Back</button>
+        <span>Page {this.props.page} of {this.props.pages}</span>
+        <button className="button button--action" onClick={this.nextPage}>Forward <i className="fa fa-arrow-right right"></i></button>
+      </div>
+    );    
   }
 
   renderIssue(repo, issue){
@@ -75,14 +86,13 @@ class IssueList extends React.Component {
       <div className="issue-list">
         <div className="header">
           <h2>Issues</h2>
-          <div className="nav">
-            <button className="button button--action" onClick={this.prevPage}><i className="fa fa-arrow-left"></i> Back</button>
-            <span>Page {this.props.page} of {this.props.pages}</span>
-            <button className="button button--action" onClick={this.nextPage}>Forward <i className="fa fa-arrow-right right"></i></button>
-          </div>
+          {this.renderPaging()}
         </div>
         <div>
           {this.props.issues.map((issue) => this.renderIssue(this.props.repo, issue))}
+        </div>
+        <div className="header">
+          {this.renderPaging()}
         </div>
       </div>
     );

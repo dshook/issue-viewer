@@ -35,7 +35,7 @@ export default class Markdown{
           //finishedTokens.push(token);
           break;
         }
-        token.text = Markdown.encodeHtmlEntites(Markdown.trimStringClean(token.text, maxLen - seenLen));
+        token.text = Markdown.encodeHtmlEntites(Markdown.trimStringClean(token.text, maxLen - seenLen)) + '...';
         finishedTokens.push(token);
         break;
       }
