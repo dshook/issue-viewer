@@ -19,71 +19,76 @@
     margin: 0;
     padding: 0;
   }
+}
 
-  .issue{
-    @extend %clearfix;
-    @include flexbox(); 
+.issue{
+  @extend %clearfix;
+  @include flexbox(); 
 
-    -webkit-box-shadow: 10px 10px 24px -9px rgba(0,0,0,0.75);
-    -moz-box-shadow: 10px 10px 24px -9px rgba(0,0,0,0.75);
-    box-shadow: 10px 10px 24px -9px rgba(0,0,0,0.75);
+  @include box-shadow(10px, 10px, 24px, rgba(0,0,0,0.75));
 
-    background-color: $neutral-light;
-    list-style: none;  
-    margin-bottom: 1em;
-    padding: 1em;
+  background-color: $neutral-light;
+  list-style: none;  
+  margin-bottom: 1em;
+  padding: 1em;
 
-    .left-panel{
-      @include flex(initial);
-      margin: 0 1em 1em 0;
-      height: 100%;
+  .left-panel{
+    @include flex(initial);
+    margin: 0 1em 1em 0;
+    height: 100%;
+  }
+
+  .right-panel{
+    @include flex(1);
+    height: 100%;
+  }
+
+  .num{
+    &::before{
+      content: '#';
     }
+    font-size: 1.3em;
+  }
 
-    .right-panel{
-      @include flex(1);
-      height: 100%;
+  .title{
+    font-size: 1.3em;
+    word-wrap: break-word;
+  }
+
+  .user{
+    margin-top: 0.5em;
+    text-align: center;
+    img{
+      width: 75px;
+      height: 75px;
     }
-
-    .num{
-      &::before{
-        content: '#';
-      }
-      font-size: 1.3em;
-    }
-
-    .title{
-      font-size: 1.3em;
-      word-wrap: break-word;
-    }
-
-    .user{
-      margin-top: 0.5em;
-      img{
-        width: 75px;
-        height: 75px;
-      }
-      .name{
-        text-align: center;
-        font-size: 0.7em;
-      }
-    }
-
-    .body{
-      font-size: 0.8em;
-      word-break: break-all;
-    }
-
-    .labels{
-      float: left;
-      color: #EEE;
-      @include text-stroke(2px);
-
-      .label{
-        @include rounded(5px);
-        float: left;
-        padding: 0.4em 0.6em;
-        margin-right: 0.5em;
-      }
+    .name{
+      font-size: 0.7em;
     }
   }
+
+  .body{
+    font-size: 0.8em;
+    word-break: break-all;
+  }
+
+  .labels{
+    float: left;
+    color: #EEE;
+    @include text-stroke(2px);
+
+    .label{
+      @include rounded(5px);
+      float: left;
+      padding: 0.4em 0.6em;
+      margin-right: 0.5em;
+    }
+  }
+}
+
+.comment .issue{
+  border-top: 1px solid $grey;
+  margin-left: 2em;
+  margin-bottom: 0em;
+  @include box-shadow(0px, 0px, 0px, rgba(0,0,0,0));
 }

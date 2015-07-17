@@ -2,9 +2,12 @@ import React from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 import IssueStore from 'client/stores/IssueStore.js';
 import issueActions from 'client/actions/IssueActions.js';
-import marked from 'marked';
+import markdown from 'client/utils/markdown.js';
 
 class Issue extends React.Component {
+  constructor(){
+    super();
+  }
   static propTypes = {
     params: React.PropTypes.object,
     issue: React.PropTypes.object,
@@ -26,10 +29,34 @@ class Issue extends React.Component {
     issueActions.updateIssue(repo, number);
   }
 
+  renderComment(comment, index){
+    return (
+      <div className="comment">
+        <div key={comment.id} className="issue" >
+          <div className="left-panel">
+            <div className="date">{comment.updated_at}</div>
+            <div className="user">
+              <img src={comment.user.avatar_url} />
+              <div className="name">{comment.user.login}</div>
+            </div>
+          </div>
+          <div className="right-panel">
+            <div className="body" 
+              dangerouslySetInnerHTML={{
+                __html: markdown.formatBody(comment.body)
+              }}
+            />
+          </div>
+        </div>
+
+      </div>
+    );
+  }
+
   renderIssue(issue){
     if(!issue) return '';
     return (
-      <li key={issue.id} className="issue" >
+      <div key={issue.id} className="issue" >
         <div className="left-panel">
           <a href={issue.html_url} className="num">{issue.number}</a>
           <div className="user">
@@ -41,7 +68,7 @@ class Issue extends React.Component {
           <span className="title">{issue.title}</span>
           <div className="body" 
             dangerouslySetInnerHTML={{
-              __html: issue.body ? marked(issue.body, {sanitize: true}) : ''
+              __html: markdown.formatBody(issue.body)
             }}
           />
           <div className="labels">
@@ -51,8 +78,11 @@ class Issue extends React.Component {
             }
             )}
           </div>
+          <div className="comments">
+            {issue.comments.map((c, i) => this.renderComment(c, i) )}
+          </div>
         </div>
-      </li>
+      </div>
     );
   }
 

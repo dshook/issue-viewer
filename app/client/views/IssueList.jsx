@@ -3,7 +3,7 @@ import connectToStores from 'alt/utils/connectToStores';
 import IssueStore from 'client/stores/IssueStore.js';
 import IssueActions from 'client/actions/IssueActions.js';
 import { Link } from 'react-router';
-import marked from 'marked';
+import markdown from 'client/utils/markdown.js';
 
 class IssueList extends React.Component {
   constructor(){
@@ -29,35 +29,6 @@ class IssueList extends React.Component {
     return IssueStore.getState();
   }
 
-  trimStringClean(str, len){
-    var trimmedString = str.substr(0, len);
-
-    //re-trim if we are in the middle of a word
-    return trimmedString.substr(0, 
-      Math.min(trimmedString.length, trimmedString.lastIndexOf(' ')));
-  }
-
-  formatBody(str){
-    if(!str) return '';
-    var tokens = marked.lexer(str, {sanatize: true});
-    var maxLen = 140;
-    var seenLen = 0;
-    var finishedTokens = [];
-    //get the first maxLen characters of the parsed markdown
-    for(let token of tokens){
-      if(seenLen + token.text.length < maxLen){
-        finishedTokens.push(token);
-        seenLen += token.text.length;
-      }else{
-        token.text = this.trimStringClean(token.text, maxLen - seenLen);
-        finishedTokens.push(token);
-        break;
-      }
-    }
-    finishedTokens.links = tokens.links;
-    return marked.parser(finishedTokens);
-  }
-
   nextPage(e){
     if(this.props.page + 1 <= this.props.pages){
       IssueActions.updateIssues(this.props.repo, this.props.page + 1);
@@ -71,7 +42,6 @@ class IssueList extends React.Component {
   }
 
   renderIssue(repo, issue){
-
     return (
       <div key={issue.id} className="issue" >
         <div className="left-panel">
@@ -85,7 +55,7 @@ class IssueList extends React.Component {
           <Link to={`/issue/${repo.replace('/', '-')}/${issue.number}` } className="title">{issue.title}</Link>
           <div className="body" 
             dangerouslySetInnerHTML={{
-              __html: this.formatBody(issue.body) 
+              __html: markdown.formatBody(issue.body, 140) 
             }}
           />
           <div className="labels">
