@@ -81,9 +81,9 @@ class IssueList extends React.Component {
             <button className="button button--action" onClick={this.nextPage}>Forward <i className="fa fa-arrow-right right"></i></button>
           </div>
         </div>
-        <ul>
+        <div>
           {this.props.issues.map((issue) => this.renderIssue(this.props.repo, issue))}
-        </ul>
+        </div>
       </div>
     );
   }

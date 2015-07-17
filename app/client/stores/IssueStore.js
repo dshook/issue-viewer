@@ -24,8 +24,7 @@ class IssueStore{
     try{
       this.setState({
         issue: null,
-        repo: params.repo,
-        issues: []
+        repo: params.repo
       });
       let page = params.page || 1;
       let issuesResponse = await httpinvoke(
