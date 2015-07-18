@@ -24,7 +24,8 @@ export default class Markdown{
     }
     var seenLen = 0;
     var finishedTokens = [];
-    //get the first maxLen characters of the parsed markdown
+
+    //get the first maxLen characters of the parsed markdown 
     for(let token of tokens){
       if(token.text && seenLen + token.text.length < maxLen){
         finishedTokens.push(token);

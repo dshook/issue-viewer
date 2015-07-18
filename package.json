@@ -4,7 +4,9 @@
   "repository": "https://bitbucket.org/dshook/issue-viewer",
   "scripts": {
     "start": "nodemon ./app/server/main.js",
-    "build": "gulp watch"
+    "build": "gulp watch",
+    "test": "npm run babel-node -- ./tests/tests.js",
+    "babel-node": "babel-node --stage 0"
   },
   "aliases": {
     "aliases": {
@@ -36,6 +38,7 @@
     "mold-source-map": "^0.4.0",
     "nodemon": "^1.3.7",
     "run-sequence": "^1.1.0",
+    "tape": "^4.0.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },

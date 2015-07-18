@@ -12,4 +12,5 @@ View Github issues from any repository.  Includes paging, markdown support, and 
 
 * Browse to http://localhost:9876/
 
+* Run tests with `npm run test`
 
