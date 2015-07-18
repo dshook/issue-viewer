@@ -18,7 +18,7 @@ export default class Markdown{
     var renderer = new marked.Renderer();
     renderer.paragraph = Markdown.linkUsers;
 
-    var tokens = marked.lexer(str, {sanatize: true});
+    var tokens = marked.lexer(str, {sanatize: false, gfm: true});
     if(!maxLen){
       return marked.parser(tokens, {renderer: renderer});
     }
@@ -31,8 +31,7 @@ export default class Markdown{
         seenLen += token.text.length;
       }else if(token.text){
         //don't truncate html since it can break matching tags
-        if(token.type === 'html' || token.type === 'code'){
-          //finishedTokens.push(token);
+        if(token.type === 'html'){
           break;
         }
         token.text = Markdown.encodeHtmlEntites(Markdown.trimStringClean(token.text, maxLen - seenLen)) + '...';
@@ -52,3 +51,4 @@ export default class Markdown{
       Math.min(trimmedString.length, trimmedString.lastIndexOf(' ')));
   }
 }
+
